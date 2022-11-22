@@ -32,9 +32,10 @@ class MessageController extends Controller
     public function update_chat_status(Request $request)
     {
     
-        $useswap = UserSwap::where('id',$request->id)->first();
+        $useswap = UserSwap::findOrFail($request->id);
         $useswap->status = $request->status;
         $useswap->save();
+        $chat = Message::where('user_swap_id',$request->id)->first();
         if($request->status  == 1){
             $useswap->message->update([
                 'is_accepted' => 1,
@@ -45,10 +46,10 @@ class MessageController extends Controller
         elseif($request->status  == 3){
         $useswap = UserSwap::where('id',$request->id)->delete();
         }
-        if ($useswap)
+        if ($useswap && $chat)
         {
             return response()->json([
-                
+                'chat' => $chat,
                 'message' => 'UserSwap Status Update successfully',
                 'error'=>FALSE
             ]);
