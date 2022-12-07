@@ -46,6 +46,12 @@ class MessageController extends Controller
         elseif($request->status  == 3){
         $useswap = UserSwap::where('id',$request->id)->delete();
         }
+        elseif($request->status  == 5)
+        {
+            $update_user = User::where('id', $useswap->sender_id)->update([
+                'status'=> $status_code
+            ]);
+        }
         if ($useswap && $chat)
         {
             return response()->json([

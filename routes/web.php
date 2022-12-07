@@ -34,7 +34,7 @@ Route::post('/useradd',[\App\Http\Controllers\Admin\UserController::class,'usera
 Route::get('/useredel/{id}',[\App\Http\Controllers\Admin\UserController::class,'useredel'])->name('user.del');
 Route::get('/edit/{id}',[\App\Http\Controllers\Admin\UserController::class,'usersedit'])->name('users_edit');
 Route::post('/editaction',[\App\Http\Controllers\Admin\UserController::class,'editaction'])->name('editaction');
-
+Route::get('/user/status/{id}/{status_code}',[\App\Http\Controllers\Admin\UserController::class,'updatestatus'])->name('update_status');
 
 // about interest
 Route::get('/intrest',[\App\Http\Controllers\Admin\IntrestController::class,'intrest'])->name('intrest');

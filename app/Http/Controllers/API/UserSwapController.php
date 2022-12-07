@@ -64,7 +64,6 @@ class UserSwapController extends Controller
             $param = 'reciever_id';
         }
         $product = UserSwap::where($param,Auth()->id())->get();
-        // $product = UserSwap::where('reciever_id',$request->reciever_id)->get();
              $response = [];
              $i = 0;
              foreach($product as $products)

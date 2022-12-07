@@ -25,19 +25,12 @@
                             <th>Address</th>
                             <th>Lat</th>
                             <th>Lng</th>
+                            <th>Registration Date</th>
                             <th>Avatar</th>
                             <th>Action</th>
                           </tr>
                         </thead>
-                    <!-- <tbody>
-                      @foreach($data as $user)
-                      <tr>
-                      <td>{{$user->id}}</td>
-                      <td>{{$user->name}}</td>
-                      <td>{{$user->email}}</td>
-                      </tr>
-                    </tbody> -->
-                    <!-- @endforeach -->
+            
                     <tbody>
                       @foreach($data as $user)
                           <tr>
@@ -60,14 +53,24 @@
                               {{$user->lng}}
                             </td>
                             <td>
+                              {{$user->created_at->format('Y-m-d') 
+                            }}
+                            </td>
+                            <td>
                             <img src="{{ asset('storage/' .$user->avatar) }}" height="50px" width="50px">
 
                             </td>
                           
                             <td>
-                            <a href="{{route('user.del', $user->id)}}">  <button type="button" class="btn btn-danger"><span class=""></span>Delete</button></a>
-                     <a href="{{route('users_edit', $user->id)}}">  <button type="button" class="btn btn-primary"><span class=""></span>Edit</button></a>
-                             
+                             <a href="{{route('user.del', $user->id)}}">  <button type="button" class="btn btn-info"><span class=""></span>Delete</button></a>
+                             <a href="{{route('users_edit', $user->id)}}">  <button type="button" class="btn btn-primary"><span class=""></span>Edit</button></a>
+                             @if ($user->status == 1)
+                             <a href="{{route('update_status',[$user->id, 'status_code'=> 0] )}}">  <button type="button" class="btn btn-danger"><span class=""></span>Block</button></a>
+                             @else
+                             <a href="{{route('update_status',[$user->id, 'status_code'=> 1] )}}">  <button type="button" class="btn btn-success"><span class=""></span>Unblock</button></a>
+
+                             @endif
+
                             </td>
                           
                           </tr>

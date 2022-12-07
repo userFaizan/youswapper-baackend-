@@ -29,7 +29,8 @@ class User extends Authenticatable
         'age',
         'country',
         'otp',
-        'email_otp'
+        'email_otp',
+        'status'
     ];
 
     /**

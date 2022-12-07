@@ -50,12 +50,11 @@ class UserController extends Controller
 
         if ($request->hasfile('avatar'))
         {
-           $file=$request->file('avatar');
-           $extension=$file->getClientOriginalExtension();
+         $file=$request->file('avatar');
+         $extension=$file->getClientOriginalExtension();
          $filename = $file->store('public/product/profile_images');
          $filename = str_replace('public/','', $filename);
- 
-           $User->avatar = $filename;
+         $User->avatar = $filename;
        }
         $User->save();
         return redirect('users');
@@ -77,10 +76,8 @@ class UserController extends Controller
     
     }
 
-    public function editaction(Request $request){
-
-
-       
+    public function editaction(Request $request)
+    {
 
        $User= User::find($request->id);
        $User->name=$request->name;
@@ -88,8 +85,6 @@ class UserController extends Controller
        $User->address=$request->address;
        $User->lat=$request->lat;
        $User->lng=$request->lng;
-      
-
        if ($request->hasfile('avatar'))
        {
           $file=$request->file('avatar');
@@ -101,6 +96,14 @@ class UserController extends Controller
       }
        $User->save();
        return redirect('users');
+   }
+
+   public function updatestatus ($id,$status_code)
+   {
+    $update_user = User::whereId($id)->update([
+        'status'=> $status_code
+    ]);
+    return redirect('users');
    }
 
 }

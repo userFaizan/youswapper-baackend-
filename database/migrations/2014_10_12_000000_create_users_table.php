@@ -28,6 +28,7 @@ class CreateUsersTable extends Migration
             $table->string('surname');
             $table->int('age');
             $table->string('country');
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }

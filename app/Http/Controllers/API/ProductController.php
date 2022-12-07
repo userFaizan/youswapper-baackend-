@@ -65,7 +65,8 @@ class ProductController extends Controller
             if($request->limit != Null){
                 $limit = $request->limit;
             }
-            $categoryId  =  $request->category_id;
+if( $request->category_id != 0){
+    $categoryId  =  $request->category_id;
             $products    = Product::with('user','category','images')
                         ->where('user_id','!=',auth()->id())
                         ->WhereHas('category', function ($query) use ($categoryId) {
@@ -76,20 +77,42 @@ class ProductController extends Controller
             ->WhereHas('category', function ($query) use ($categoryId) {
     $query->where('category_id', $categoryId);
 })->count();
-            if ($products) {   
-                return response()->json([
-                    'data'=>$products,
-                    'total'=>$count,
-                    'message' => 'Product Found',
-                    'error'=>FALSE
-                ]);
-            } else {
-                return response()->json([
-                    'data'=>$products,
-                    'message' => 'No Product found',
-                    'error'=>TRUE
-                ]);
-            }
+
+if ($products) {   
+    return response()->json([
+        'data'=>$products,
+        'total'=>$count,
+        'message' => 'Product Found',
+        'error'=>FALSE
+    ]);
+} else {
+    return response()->json([
+        'data'=>$products,
+        'message' => 'No Product found',
+        'error'=>TRUE
+    ]);
+}
+
+}else{
+    $products = Product::with('user','category','images')->get();
+    if ($products) {   
+        return response()->json([
+            'data'=>$products,
+            'message' => 'Product Found',
+            'error'=>FALSE
+        ]);
+    } else {
+        return response()->json([
+            'data'=>$products,
+            'message' => 'No Product found',
+            'error'=>TRUE
+        ]);
+    }
+
+}
+        
+
+    
        
     }
 //get user product
